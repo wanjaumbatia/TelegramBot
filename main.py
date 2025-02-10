@@ -1,11 +1,14 @@
+from dotenv import load_dotenv
 from telethon import TelegramClient, events
-from metaapi import place_trade
+from metaapi import get_orders, place_trade
 from parser import extract_trade_info
 import asyncio
 from datetime import datetime
+import os 
+load_dotenv()
 
-api_id = 12926958 
-api_hash = '427abfbf6594950fdd2e6a1be0630607'
+api_id = os.environ.get('TELEGARM_ID')
+api_hash = os.environ.get('TELEGRAM_HASH_ID')
 channel_usernames = [
     'ForexScalping_Signalsfree',
     'garrysignals',
@@ -72,6 +75,7 @@ async def edit_message_handler(event):
 async def main():
     await client.start()
     print("Listening for messages... Press Ctrl+C to stop.")
+    print(await get_orders())
     await client.run_until_disconnected()
 
 if __name__ == '__main__':
