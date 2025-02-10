@@ -1,6 +1,6 @@
 from dotenv import load_dotenv
 from telethon import TelegramClient, events
-from metaapi import get_orders, place_trade
+from metaapi import place_trade
 from parser import extract_trade_info
 import asyncio
 from datetime import datetime
