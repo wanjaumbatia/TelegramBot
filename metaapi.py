@@ -2,7 +2,6 @@ from metaapi_cloud_sdk import MetaApi
 import os
 from dotenv import load_dotenv
 
-from utils import print_account_info
 load_dotenv()
 
 # Replace with your MetaAPI credentials
@@ -77,14 +76,3 @@ async def place_trade(direction):
     
 
    
-async def get_account_infomation():
-    connection = await get_connection()
-    print_account_info(await connection.get_account_information())
-
-async def get_open_trades():
-    connection = await get_connection()
-    return await connection.get_positions()
-
-async def get_orders():
-    connection = await get_connection()
-    return await connection.get_orders()

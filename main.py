@@ -75,7 +75,6 @@ async def edit_message_handler(event):
 async def main():
     await client.start()
     print("Listening for messages... Press Ctrl+C to stop.")
-    print(await get_orders())
     await client.run_until_disconnected()
 
 if __name__ == '__main__':
