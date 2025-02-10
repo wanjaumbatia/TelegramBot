@@ -23,25 +23,27 @@ async def new_message_listener(event):
         channel = await event.get_chat()
         raw_message = event.message.text
         parsed_data = {}
-        
-        if channel.username == 'wroot_bot':
-            print('Wroot Bot signal received')
-            trade_details = extract_trade_info(raw_message)
-        elif channel.username == 'garrysignals':
-            print('Garry Signals received')
-            trade_details = extract_trade_info(raw_message)
-        elif channel.username == 'ForexScalping_Signalsfree':
-            print('Forex Scalping signal')
-            trade_details = extract_trade_info(raw_message)
-        else:
-            print('Unknown Channel')
-            return
-        
-        print(trade_details)
-        if trade_details:       
-            result = await place_trade(trade_details["Direction"])
-            if result == "TRADE_RETCODE_DONE":
-                print("Trade executed completely...")
+        # check if message has sl, tp
+        lower_raw = raw_message.lower()
+        if 'tp' in lower_raw and 'sl' in lower_raw:
+            if 'xauusd' in lower_raw or 'gold' in lower_raw:
+                if channel.username == 'wroot_bot':
+                    print('Wroot Bot signal received')
+                    trade_details = extract_trade_info(raw_message)
+                elif channel.username == 'garrysignals':
+                    print('Garry Signals received')
+                    trade_details = extract_trade_info(raw_message)
+                elif channel.username == 'ForexScalping_Signalsfree':
+                    print('Forex Scalping signal')
+                    trade_details = extract_trade_info(raw_message)
+                else:
+                    print('Unknown Channel')
+                    return
+                
+                if trade_details:       
+                    result = await place_trade(trade_details["Direction"])
+                    if result == "TRADE_RETCODE_DONE":
+                        print("Trade executed completely...")
 
     except Exception as e:
         print(f"Error: {str(e)}")
@@ -52,22 +54,27 @@ async def edit_message_handler(event):
         channel = await event.get_chat()
         raw_message = event.message.text
         parsed_data = {}
-
-        if channel.username == 'wroot_bot':
-            trade_details = extract_trade_info(raw_message)
-        elif channel.username == 'garrysignals':
-            trade_details = extract_trade_info(raw_message)
-        elif channel.username == 'ForexScalping_Signalsfree':
-            trade_details = extract_trade_info(raw_message)
-        else:
-            return
-        
-        print(trade_details)
-        if trade_details:       
-            result = await place_trade(trade_details["Direction"])
-            if result == "TRADE_RETCODE_DONE":
-                print("Trade executed completely...")
-
+        # check if message has sl, tp
+        lower_raw = raw_message.lower()
+        if 'tp' in lower_raw and 'sl' in lower_raw:
+            if 'xauusd' in lower_raw or 'gold' in lower_raw:
+                if channel.username == 'wroot_bot':
+                    print('Wroot Bot signal received')
+                    trade_details = extract_trade_info(raw_message)
+                elif channel.username == 'garrysignals':
+                    print('Garry Signals received')
+                    trade_details = extract_trade_info(raw_message)
+                elif channel.username == 'ForexScalping_Signalsfree':
+                    print('Forex Scalping signal')
+                    trade_details = extract_trade_info(raw_message)
+                else:
+                    print('Unknown Channel')
+                    return
+                
+                if trade_details:       
+                    result = await place_trade(trade_details["Direction"])
+                    if result == "TRADE_RETCODE_DONE":
+                        print("Trade executed completely...")
 
     except Exception as e:
         print(f"Edit Error: {str(e)}")
